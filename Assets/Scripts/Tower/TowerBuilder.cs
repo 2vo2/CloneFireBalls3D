@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,22 +5,21 @@ public class TowerBuilder : MonoBehaviour
 {
     [SerializeField] private Transform _buildPoint;
     [SerializeField] private Block _block;
+    [SerializeField] private Vector2Int _towerMinMaxSize;
     [SerializeField] private Color[] _colors;
-
-    private int _towerSize;
-    private List<Block> _blocks;
+    
+    private readonly List<Block> _blocks = new();
+    private float _towerSize;
 
     public List<Block> Build()
     {
-        _blocks = new List<Block>();
+        var currentPoint = _buildPoint;
 
-        Transform currentPoint = _buildPoint;
-
-        _towerSize = Random.Range(5, 15);
+        _towerSize = Random.Range(_towerMinMaxSize.x, _towerMinMaxSize.y);
 
         for (int i = 0; i < _towerSize; i++)
         {
-            Block newBlock = BuildBlock(currentPoint);
+            var newBlock = BuildBlock(currentPoint);
             newBlock.SetColor(_colors[Random.Range(0, _colors.Length)]);
             _blocks.Add(newBlock);
             currentPoint = newBlock.transform;

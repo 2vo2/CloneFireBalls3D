@@ -1,43 +1,45 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _bounceForce;
     [SerializeField] private float _bounceRadius;
+    [SerializeField] private float _delayToDestroy;
+    
+    public Rigidbody Rigidbody => _rigidbody;
 
-    private Vector3 _moveDirection;
-
-    private void Start() 
-    {
-        _moveDirection = Vector3.forward;    
-    }
-
-    private void Update() 
-    {
-        transform.Translate(_moveDirection * _speed * Time.deltaTime);    
-    }
-
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
         if(other.TryGetComponent(out Block block))
         {
             block.Break();
             Destroy(gameObject);
         }
-        if(other.TryGetComponent(out Obstacle obstacle))
-        {
-            Bounce();
-        }    
     }
 
-    private void Bounce()
+    private void OnCollisionEnter(Collision other) 
     {
-        _moveDirection = Vector3.back + Vector3.up;
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        rigidbody.isKinematic = false;
-        rigidbody.AddExplosionForce(_bounceForce, transform.position + new Vector3(0, -1, -1), _bounceRadius);
+        if(other.gameObject.TryGetComponent(out Obstacle _)) 
+            Bounce(other.contacts[0].normal);    
+    }
+
+    private void Bounce(Vector3 normal)
+    {
+        _rigidbody.velocity = Vector3.zero;
+        
+        var bounceDirection = Vector3.Cross(normal, Vector3.up);
+        _rigidbody.AddExplosionForce(_bounceForce, bounceDirection, _bounceRadius);
+
+        StartCoroutine(DestroyAfterDelay());
+    }
+
+    private IEnumerator DestroyAfterDelay()
+    {
+        yield return new WaitForSeconds(_delayToDestroy);
+        
+        gameObject.SetActive(false);
     }
 }

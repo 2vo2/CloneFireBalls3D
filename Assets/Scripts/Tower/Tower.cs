@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,7 +5,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(TowerBuilder))]
 public class Tower : MonoBehaviour
 {
-    private TowerBuilder _towerBuilder;
+    [SerializeField] private TowerBuilder _towerBuilder;
     private List<Block> _blocks;
 
     public event UnityAction<int> SizeUpdate;
@@ -14,7 +13,6 @@ public class Tower : MonoBehaviour
 
     private void Start() 
     {
-        _towerBuilder = GetComponent<TowerBuilder>();
         _blocks = _towerBuilder.Build();
 
         foreach (var block in _blocks)
@@ -25,11 +23,11 @@ public class Tower : MonoBehaviour
         SizeUpdate?.Invoke(_blocks.Count);    
     }
 
-    private void OnBulletHit(Block hitedBlock)
+    private void OnBulletHit(Block hitBlock)
     {
-        hitedBlock.BulletHit -= OnBulletHit;
+        hitBlock.BulletHit -= OnBulletHit;
 
-        _blocks.Remove(hitedBlock);
+        _blocks.Remove(hitBlock);
 
         
         foreach (var block in _blocks)

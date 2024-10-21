@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5662170868622473197}
   - component: {fileID: 5307751954341245594}
   - component: {fileID: 3279493118037374784}
-  - component: {fileID: 8582075907447660414}
-  - component: {fileID: 1816284035280665679}
+  - component: {fileID: 7868007620665336453}
+  - component: {fileID: 1050991159038993166}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -27,12 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6813096994455384127}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.5, y: 0.3, z: 2.5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5307751954341245594
 MeshFilter:
@@ -53,6 +54,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -83,21 +85,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8582075907447660414
-MeshCollider:
+--- !u!65 &7868007620665336453
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6813096994455384127}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1816284035280665679
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1050991159038993166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,7 +115,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6813096994455384127}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79dbc118a4bf190459531307b8ebac86, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bd0a7d28ba68eb4da7a39366a5709a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyEffcet: {fileID: 6085745002179812792, guid: b582f5d72dea9b14294ffc6c6d6c1a7e, type: 3}
+  _destroyEffect: {fileID: 718564498391734718, guid: fd774cab53fd94746ad10dae54ef95e9, type: 3}
+  _meshRenderer: {fileID: 3279493118037374784}

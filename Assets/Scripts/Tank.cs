@@ -1,13 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
 public class Tank : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField] private Transform _shootPoint;
-    [SerializeField] private Bullet _bulletTamplate;
+    
+    [Header("Shoot")]
+    [SerializeField] private Bullet _bulletTemplate;
+    [SerializeField] private float _shootForce;
     [SerializeField] private float _delayBetweenShoot;
+    
+    [Header("Animation")]
     [SerializeField] private float _recoilDistance;
 
     private float _timeAfterShoot;
@@ -16,7 +20,7 @@ public class Tank : MonoBehaviour
     {
         _timeAfterShoot += Time.deltaTime;
 
-        if(Time.timeScale == 1)
+        if(Mathf.Approximately(Time.timeScale, 1))
         {
             if(Input.GetMouseButton(0))
             {
@@ -32,6 +36,7 @@ public class Tank : MonoBehaviour
 
     private void Shoot()
     {
-        Instantiate(_bulletTamplate, _shootPoint.position, Quaternion.identity);
+        var bullet = Instantiate(_bulletTemplate, _shootPoint.position, Quaternion.identity);
+        bullet.Rigidbody.AddForce(Vector3.forward * _shootForce);
     }
 }
