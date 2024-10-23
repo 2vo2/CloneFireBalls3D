@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
         if(other.TryGetComponent(out Block block))
         {
             block.Break();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

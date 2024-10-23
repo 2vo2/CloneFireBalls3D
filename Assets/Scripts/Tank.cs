@@ -7,7 +7,7 @@ public class Tank : MonoBehaviour
     [SerializeField] private Transform _shootPoint;
     
     [Header("Shoot")]
-    [SerializeField] private Bullet _bulletTemplate;
+    [SerializeField] private BulletPool _bulletPool;
     [SerializeField] private float _shootForce;
     [SerializeField] private float _delayBetweenShoot;
     
@@ -36,7 +36,7 @@ public class Tank : MonoBehaviour
 
     private void Shoot()
     {
-        var bullet = Instantiate(_bulletTemplate, _shootPoint.position, Quaternion.identity);
+        var bullet = _bulletPool.GetBullet(_shootPoint.position, Quaternion.identity);
         bullet.Rigidbody.AddForce(Vector3.forward * _shootForce);
     }
 }
